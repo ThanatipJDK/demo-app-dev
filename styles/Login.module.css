@@ -1,0 +1,10 @@
+.login_form {
+  display: flex;
+  justify-content: center;
+}
+
+.div_txt_welcome {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
