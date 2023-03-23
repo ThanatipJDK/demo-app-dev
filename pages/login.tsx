@@ -3,9 +3,11 @@ import { Button, Checkbox, Form, Input, Row, Col } from 'antd';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import styles from '@/styles/Login.module.css'
+import useAuth from '@/components/useAuth';
+
 const Login = () => {
   const router = useRouter()
-
+  const { login } = useAuth();
   const onFinish = async (values: any) => {
     console.log('Success:', values);
     const body = { 
@@ -17,8 +19,8 @@ const Login = () => {
     //     'Content-Type': 'application/json'
     //   }
     // })
-
-    localStorage.setItem("token", JSON.stringify(body)) //ตัวอย่างจริงๆ ก็เอา token ที่ได้มาใส่แทน
+    login(JSON.stringify(body));
+    // localStorage.setItem("token", JSON.stringify(body)) //ตัวอย่างจริงๆ ก็เอา token ที่ได้มาใส่แทน
     router.push('/profile')
   };
 
@@ -28,6 +30,7 @@ const Login = () => {
 
   return (
     <>
+      
       <Row gutter={[16, 16]}>
       <Col span={12} style={{display:'flex', justifyContent:'center',    background: 'mistyrose'}}>
           <div className={styles.div_txt_welcome}>

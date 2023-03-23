@@ -1,9 +1,9 @@
 import React from 'react'
-
+import withAuth from '@/components/withAuth';
 const Profile = () => {
   return (
     <div>Profile</div>
   )
 }
 
-export default Profile
+export default withAuth(Profile)

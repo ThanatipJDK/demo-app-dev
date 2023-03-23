@@ -4,7 +4,7 @@ import { AppstoreOutlined, MailOutlined, SettingOutlined, UserOutlined } from '@
 import type { MenuProps } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-
+import useAuth from './useAuth';
 const { Header, Content, Footer } = Layout;
 const items: MenuProps['items'] = [
   {
@@ -22,7 +22,7 @@ const items: MenuProps['items'] = [
   
   
 ];
-const AppLayout : React.FC = ({children}:any) => {
+const AppLayout = ({children}:any) => {
   const router = useRouter()
   const [current, setCurrent] = useState('mail');
   const {

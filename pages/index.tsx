@@ -1,11 +1,24 @@
+import React from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
-
+import useAuth from '@/components/useAuth'
+import { useRouter } from 'next/router'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const router = useRouter();
+  const [auth, setAuth] = React.useState(false)
+  React.useEffect(() => {
+    const token = localStorage.getItem('token')
+    if(!token) {
+      setAuth(true)
+    }
+   
+    
+  }, [router.pathname])
+  
   return (
     <>
       <Head>
@@ -17,7 +30,7 @@ export default function Home() {
       <main className={styles.main}>
         <div>
           <h1 style={{fontSize:'2rem'}}>Welcom to my website</h1>
-          <a href='/login'>Sign In</a>
+          {auth && <a href='/login'>Sign In</a>}
         </div>
       </main>
     </>
