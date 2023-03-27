@@ -1,33 +1,51 @@
 // withAuth.tsx
 
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { ComponentType, useEffect } from 'react';
 import useAuth from './useAuth';
-const withAuth = (Component:any) => {
-  const Auth = (props:any) => {
+// const withAuth = (Component: any) => {
+const withAuth = (WrappedComponent: ComponentType<any>) => {
+  const AuthenticatedComponent = (props: any) => {
+    const { user } = useAuth();
     const router = useRouter();
     const token = localStorage?.getItem('token')
-    // const { user } = useAuth();
-    // console.log(user);
-    
-    const isAuthenticated = token ? true : false; // replace with your authentication logic
-    
-    
     useEffect(() => {
-      console.log(isAuthenticated);
-      if (!isAuthenticated) {
-        router.push('/');
+      console.log(user);
+      
+      if (!token) {
+        router.replace('/login');
       }
-    }, [isAuthenticated, router]);
+    }, [user, router]);
 
-    if (isAuthenticated) {
-      return <Component {...props} />;
-    }
-
-    return null;
+    return token ? <WrappedComponent {...props} /> : null;
   };
 
-  return Auth;
+  return AuthenticatedComponent;
+  // const Auth = (props:any) => {
+  //   const router = useRouter();
+  //   const token = localStorage?.getItem('token')
+    
+  //   // const { user } = useAuth();
+  //   // console.log(user);
+    
+  //   const isAuthenticated = token ? true : false; // replace with your authentication logic
+    
+    
+  //   useEffect(() => {
+  //     console.log(isAuthenticated);
+  //     if (!isAuthenticated) {
+  //       router.push('/');
+  //     }
+  //   }, [isAuthenticated, router]);
+
+  //   if (isAuthenticated) {
+  //     return <Component {...props} />;
+  //   }
+
+  //   return null;
+  // };
+
+  // return Auth;
 };
 
 export default withAuth;

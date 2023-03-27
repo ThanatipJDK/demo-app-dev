@@ -4,22 +4,25 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import styles from '@/styles/Login.module.css'
 import useAuth from '@/components/useAuth';
-
+type Body = {
+  username?: string;
+  password?: string;
+};
 const Login = () => {
   const router = useRouter()
   const { login } = useAuth();
-  const onFinish = async (values: any) => {
+  const onFinish = async (values: Body) => {
     console.log('Success:', values);
-    const body = { 
+    const body: Body = {  
       username : values.username,
-      passwod : values.passwod
+      password : values.password
     }
     // const call = await axios.post('....',body,{
     //   headers: {
     //     'Content-Type': 'application/json'
     //   }
     // })
-    login(JSON.stringify(body));
+    login(body);
     // localStorage.setItem("token", JSON.stringify(body)) //ตัวอย่างจริงๆ ก็เอา token ที่ได้มาใส่แทน
     router.push('/profile')
   };

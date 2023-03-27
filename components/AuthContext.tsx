@@ -4,13 +4,13 @@ import React, { createContext, useState } from 'react';
 import { useRouter } from 'next/router';
 // let getToken: string | null = null;
 type User = {
-  id: string;
-  name: string;
+  username: string;
+  password: string;
 };
 
 type AuthContextType = {
-  user: string|null;
-  login: (token:string) => void;
+  user: User | null;
+  login: (token:any) => void;
   logout: () => void;
 };
 
@@ -22,19 +22,21 @@ export const AuthContext = createContext<AuthContextType>({
 
 export const AuthProvider = ({ children }:any) => {
   const router = useRouter()
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
 
-  const login = (token: string) => {
+  const login = (data:User) => {
     // Replace with your authentication logic
-    if (token) {
-      setUser(token)
+    if (data) {
+      setUser(data)
       localStorage.setItem("token", 'token asdadwedqwdqwedwqqwd')
     }
   };
   const logout = () => {
-    console.log('logout');
+    // console.log('logout');
     // Replace with your authentication logic
-  
+    setUser(null)
+    localStorage.clear()
+    router.push('/')
   };
 
   return <AuthContext.Provider value={{ user, login, logout }}>{children}</AuthContext.Provider>;

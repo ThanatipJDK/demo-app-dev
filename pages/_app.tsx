@@ -5,12 +5,14 @@ import { RouteGuard } from '@/components/RouteGuard'
 import { AuthProvider } from '@/components/AuthContext'
 export default function App({ Component, pageProps }: AppProps) {
   return (
+    <AuthProvider>
     <AppLayout>
       {/* <RouteGuard> */}
-      <AuthProvider>
+     
         <Component {...pageProps} />
-      </AuthProvider>
+   
       {/* </RouteGuard> */}
     </AppLayout>
+    </AuthProvider>
   ) 
 }

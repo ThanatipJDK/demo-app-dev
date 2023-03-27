@@ -28,7 +28,7 @@ const AppLayout = ({children}:any) => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-
+  const { logout } = useAuth();
   
   const onClick: MenuProps['onClick'] = (e) => {
     console.log('click ', e);
@@ -36,8 +36,9 @@ const AppLayout = ({children}:any) => {
   };
 
   const handleLogout = () => {
-    localStorage.clear()
-    router.push('/')
+    logout()
+    // localStorage.clear()
+    // router.push('/')
   }
 
   return (
